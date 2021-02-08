@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { nanoid } from "nanoid";
 import Todo from "./components/Todo";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
@@ -11,13 +12,33 @@ function App(props) {
       name={task.name}
       completed={task.completed}
       key={task.id}
+      toggleTaskCompleted={toggleTaskCompleted}
+      deleteTask={deleteTask}
     />
   ));
 
   function addTask(name) {
-    const newTask = { id: "id", name: name, completed: false };
+    const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
     setTasks([...tasks, newTask]);
   }
+
+  function toggleTaskCompleted(id) {
+    const updatedTasks = tasks.map((task) => {
+      if (id === task.id) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  }
+
+  function deleteTask(id) {
+    const updatedTasks = tasks.filter(task => task.id !== id);
+    setTasks(updatedTasks);
+  }
+
+  const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
+  const headingText = `${taskList.length} ${tasksNoun} remaining`;
 
   return (
     <div className='todoapp stack-large'>
@@ -27,7 +48,7 @@ function App(props) {
         <FilterButton />
         <FilterButton />
       </div>
-      <h2 id='list-heading'>3 tasks remaining</h2>
+      <h2 id='list-heading'>{headingText}</h2>
       <ul
         role='list'
         className='todo-list stack-large stack-exception'
