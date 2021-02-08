@@ -15,3 +15,5 @@ Working through a TODO list app from [Mozilla](https://developer.mozilla.org/en-
     <FilterButton key={name} name={name} />;
   });
 ```
+- `tabindex="-1"` means "only focusable with JavaScript"
+- `tabindex="0"` means "focusable with tab like a button"
