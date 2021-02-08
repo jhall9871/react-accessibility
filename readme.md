@@ -7,4 +7,11 @@ Working through a TODO list app from [Mozilla](https://developer.mozilla.org/en-
 
 ## Other Takeaways
 - [NanoID](https://github.com/ai/nanoid) for generating unique ids
-
+- Define `const` variables that will never change outside the `App()` function, and use `ALL_CAPS`. This way it's clear what they are, and they won't be recalculated each time the `<App />` renders.
+- `onClick()` functions written inline when short keeps top of file clearer.
+- Map over arrays returning components before the return statement, like:
+```
+  const filterList = FILTER_NAMES.map((name) => {
+    <FilterButton key={name} name={name} />;
+  });
+```
